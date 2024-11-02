@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance Job Manager Flowchart</title>
+    <!-- Include Mermaid script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Freelance Job Manager System Flow</h1>
+        <div class="mermaid">
+            flowchart TD
+                Start([Start Application]) --> Auth{Authentication}
+                Auth -->|New User| CreateAccount[Create Account]
+                Auth -->|Existing User| Login[Login]
+                CreateAccount --> MainMenu
+                Login --> MainMenu
+
+                MainMenu[Main Menu] --> ClientOps[Client Operations]
+                MainMenu --> JobOps[Job Operations]
+                MainMenu --> FinanceOps[Financial Operations]
+
+                ClientOps -->|Add| AddClient[Add New Client]
+                ClientOps -->|View| ViewClients[View/Search Clients]
+                ClientOps -->|Update| UpdateClient[Update Client Info]
+
+                JobOps -->|Create| CreateJob[Create New Job]
+                JobOps -->|View| ViewJobs[View Active/Completed Jobs]
+                JobOps -->|Update| UpdateJob[Update Job Status]
+
+                FinanceOps -->|View| ViewEarnings[View Earnings]
+                FinanceOps -->|Track| TrackPayments[Track Pending Payments]
+                FinanceOps -->|Summary| ViewSummary[View Financial Summary]
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>
