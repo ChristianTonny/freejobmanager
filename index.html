@@ -30,28 +30,58 @@
     <div class="container">
         <h1>Freelance Job Manager System Flow</h1>
         <div class="mermaid">
-            flowchart TD
-                Start([Start Application]) --> Auth{Authentication}
-                Auth -->|New User| CreateAccount[Create Account]
-                Auth -->|Existing User| Login[Login]
-                CreateAccount --> MainMenu
-                Login --> MainMenu
 
-                MainMenu[Main Menu] --> ClientOps[Client Operations]
-                MainMenu --> JobOps[Job Operations]
-                MainMenu --> FinanceOps[Financial Operations]
+          flowchart TD
+    %% Main Flow
+    Start([Start Application]) --> Auth{Authentication}
+    Auth -->|New User| CreateAccount[Create Account]
+    Auth -->|Existing User| Login[Login]
 
-                ClientOps -->|Add| AddClient[Add New Client]
-                ClientOps -->|View| ViewClients[View/Search Clients]
-                ClientOps -->|Update| UpdateClient[Update Client Info]
+    %% Authentication to Main Menu
+    CreateAccount --> MainMenu[Main Menu]
+    Login --> MainMenu
 
-                JobOps -->|Create| CreateJob[Create New Job]
-                JobOps -->|View| ViewJobs[View Active/Completed Jobs]
-                JobOps -->|Update| UpdateJob[Update Job Status]
+    %% Main Menu Sections
+    MainMenu --> ClientMgmt[Client Management]
+    MainMenu --> JobMgmt[Job Management]
+    MainMenu --> FinanceMgmt[Financial Management]
 
-                FinanceOps -->|View| ViewEarnings[View Earnings]
-                FinanceOps -->|Track| TrackPayments[Track Pending Payments]
-                FinanceOps -->|Summary| ViewSummary[View Financial Summary]
+    %% Client Management Section
+    ClientMgmt --> AddClient[Add New Client]
+    ClientMgmt --> ViewClients[View Clients List]
+    ClientMgmt --> SearchClient[Search Clients]
+
+    AddClient & ViewClients & SearchClient --> ReturnClient[Return to Main Menu]
+    ReturnClient --> MainMenu
+
+    %% Job Management Section
+    JobMgmt --> CreateJob[Create New Job]
+    JobMgmt --> ViewJobs[View Jobs]
+    JobMgmt --> UpdateJob[Update Job Status]
+
+    CreateJob & ViewJobs & UpdateJob --> ReturnJob[Return to Main Menu]
+    ReturnJob --> MainMenu
+
+    %% Financial Management Section
+    FinanceMgmt --> ViewEarnings[View Total Earnings]
+    FinanceMgmt --> PendingPay[Pending Payments]
+    FinanceMgmt --> FinSummary[Financial Summary]
+
+    ViewEarnings & PendingPay & FinSummary --> ReturnFinance[Return to Main Menu]
+    ReturnFinance --> MainMenu
+
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px
+    classDef auth fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef menu fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef operation fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    classDef return fill:#fff3e0,stroke:#ef6c00,stroke-width:1px
+
+    class Auth auth
+    class MainMenu,ClientMgmt,JobMgmt,FinanceMgmt menu
+    class AddClient,ViewClients,SearchClient,CreateJob,ViewJobs,UpdateJob,ViewEarnings,PendingPay,FinSummary operation
+    class ReturnClient,ReturnJob,ReturnFinance return
+
         </div>
     </div>
 
@@ -64,7 +94,9 @@
             flowchart: {
                 useMaxWidth: true,
                 htmlLabels: true,
-                curve: 'basis'
+                curve: 'basis',
+                rankSpacing: 50,
+                nodeSpacing: 50
             }
         });
     </script>
